@@ -22,6 +22,10 @@ When nobody is around the face gets sad, then falls asleep and dims the screen. 
 on the phones and the home server only. For the details, APIs and what is not done yet, see
 [CONTEXT.md](https://github.com/androsaurs/.github/blob/main/CONTEXT.md) (written for AI agents).
 
+**License:** the code is [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html) — use, change and share it, but any modified
+version, including one run as a service, must stay open under the same license; the stand's models and drawings are
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) — non-commercial. For commercial use, contact the author.
+
 Старые Android-телефоны — динозавры. Мы возвращаем их к жизни.
 Сейчас на одном телефоне: фраза будит лицо, оно узнаёт, кто его разбудил, и слушает команду — «передай жене…» записывает голосовую
 записку, а телефон проиграет её, когда этот человек подойдёт. Когда никого нет, лицо грустит, потом засыпает и гасит экран. Домашний
