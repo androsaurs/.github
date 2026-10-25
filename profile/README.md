@@ -17,7 +17,9 @@ can use it directly. A small home server ties the phones of a house together.
 | [androsaur-stand](https://github.com/androsaurs/androsaur-stand) | Motorized stand: FreeCAD model of the body, pan and tilt | first CAD mock-up |
 
 **What works today** (measured on a Xiaomi Redmi 12, Android 15): say the wake word and the face wakes up, recognizes who
-said it and listens for a command — «передай жене…» records a voice note, and the phone plays it when that person walks up.
+said it and listens for a command — «передай жене…» records a voice note, and the phone plays it when that person walks up;
+«который час», «какая погода завтра», «таймер на десять минут» are answered at once, without an LLM or a server. At the first
+meeting of the day it says good morning by name, with the weather and an umbrella hint.
 Above the face: the time, the date and the weather — from the home server when it is there, fetched by the phone itself
 when it is not. When nobody is around the face gets sad, then falls asleep and dims the screen. Faces are kept as numbers, never as photos,
 on the phones and the home server only. For the details, APIs and what is not done yet, see
@@ -29,7 +31,8 @@ version, including one run as a service, must stay open under the same license; 
 
 Старые Android-телефоны — динозавры. Мы возвращаем их к жизни.
 Сейчас на одном телефоне: фраза будит лицо, оно узнаёт, кто его разбудил, и слушает команду — «передай жене…» записывает голосовую
-записку, а телефон проиграет её, когда этот человек подойдёт. Над лицом — часы, дата и погода (с домашнего сервера, а без него телефон берёт её сам). Когда никого нет, лицо грустит, потом
+записку, а телефон проиграет её, когда этот человек подойдёт; «который час», «какая погода завтра», «таймер на десять минут»
+Петя отвечает сразу, без LLM и сервера. При первой встрече за день он здоровается по имени и говорит погоду. Над лицом — часы, дата и погода (с домашнего сервера, а без него телефон берёт её сам). Когда никого нет, лицо грустит, потом
 засыпает и гасит экран. Домашний
 сервер хранит настройки и людей: новый телефон узнаёт семью без обучения. Подробности и API для ИИ-агентов — в
 [CONTEXT.md](https://github.com/androsaurs/.github/blob/main/CONTEXT.md).
