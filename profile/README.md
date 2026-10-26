@@ -18,7 +18,8 @@ can use it directly. A small home server ties the phones of a house together.
 
 **What works today** (measured on a Xiaomi Redmi 12, Android 15): say the wake word and the face wakes up, recognizes who
 said it and listens for a command — «передай жене…» records a voice note, and the phone plays it when that person walks up;
-«который час», «какая погода завтра», «таймер на десять минут» are answered at once, without an LLM or a server. At the first
+«который час», «какая погода завтра», «таймер на десять минут», «сколько будет семь умножить на восемь» are answered at once,
+without an LLM or a server. With the home server, voice notes are transcribed (Groq) and read out by the synthesizer. At the first
 meeting of the day it says good morning by name, with the weather and an umbrella hint.
 Above the face: the time, the date and the weather — from the home server when it is there, fetched by the phone itself
 when it is not. When nobody is around the face gets sad, then falls asleep and dims the screen. Faces are kept as numbers, never as photos,
@@ -31,8 +32,9 @@ version, including one run as a service, must stay open under the same license; 
 
 Старые Android-телефоны — динозавры. Мы возвращаем их к жизни.
 Сейчас на одном телефоне: фраза будит лицо, оно узнаёт, кто его разбудил, и слушает команду — «передай жене…» записывает голосовую
-записку, а телефон проиграет её, когда этот человек подойдёт; «который час», «какая погода завтра», «таймер на десять минут»
-Петя отвечает сразу, без LLM и сервера. При первой встрече за день он здоровается по имени и говорит погоду. Над лицом — часы, дата и погода (с домашнего сервера, а без него телефон берёт её сам). Когда никого нет, лицо грустит, потом
+записку, а телефон проиграет её, когда этот человек подойдёт; «который час», «какая погода завтра», «таймер на десять минут»,
+«сколько будет семь умножить на восемь» Петя отвечает сразу, без LLM и сервера. С домашним сервером записки расшифровываются
+(Groq) и читаются синтезатором. При первой встрече за день он здоровается по имени и говорит погоду. Над лицом — часы, дата и погода (с домашнего сервера, а без него телефон берёт её сам). Когда никого нет, лицо грустит, потом
 засыпает и гасит экран. Домашний
 сервер хранит настройки и людей: новый телефон узнаёт семью без обучения. Подробности и API для ИИ-агентов — в
 [CONTEXT.md](https://github.com/androsaurs/.github/blob/main/CONTEXT.md).
