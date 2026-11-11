@@ -8,7 +8,7 @@
 Основная часть работает прямо на телефоне, без облака. · *The core runs on the phone itself, no cloud.*
 
 <p align="center">
-  <a href="https://github.com/androsaurs/androsaur#быстрый-старт"><b>▶ Try it · Попробовать</b></a>
+  <a href="https://github.com/androsaurs/androsaur#quick-start"><b>▶ Try it · Попробовать</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
   <a href="https://github.com/androsaurs/.github/blob/main/CONTEXT.md#как-собирать-и-проверять"><b>🔧 Build · Собрать</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
