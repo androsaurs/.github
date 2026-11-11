@@ -55,7 +55,7 @@ without them everything else keeps working on the last settings it received.
 
 - The companion works as a prototype, tested on a Xiaomi Redmi 12 (Android 15).
 - The voice is currently Russian only (the name, the commands, the notes).
-- The motorized stand, which will turn the phone toward you, is a design draft: there is no firmware yet and it has not been test-printed.
+- The motorized stand, which will turn the phone toward you, is a work in progress: the parts are printed and the electronics assembly is next, but there is no firmware yet.
 
 ## The Androsaur family
 
@@ -65,7 +65,7 @@ without them everything else keeps working on the last settings it received.
 | [androsaur-audio](https://github.com/androsaurs/androsaur-audio) | Its ears and voice: hears its name, understands short commands | working prototype |
 | [androsaur-camera](https://github.com/androsaurs/androsaur-camera) | Its eyes: finds faces and knows who is who | working prototype |
 | [androsaur-hub](https://github.com/androsaurs/androsaur-hub) | An optional server at home where the family sets things up: people, characters, pill schedules, break reminders. A new phone recognizes the family right away | first version, home network only |
-| [androsaur-stand](https://github.com/androsaurs/androsaur-stand) | The motorized stand for the phone | design draft, no firmware yet |
+| [androsaur-stand](https://github.com/androsaurs/androsaur-stand) | The motorized stand for the phone | parts printed, electronics in progress, no firmware yet |
 
 ## License
 
