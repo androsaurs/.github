@@ -1,39 +1,73 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/androsaurs/.github/main/profile/demo.gif" alt="Androsaur: a phone recognizes a person, the dinosaur turns into their own character, plays a note" width="320">
-</p>
+<table align="center">
+<tr>
+<td valign="middle"><img src="https://raw.githubusercontent.com/androsaurs/.github/main/profile/demo.gif" alt="Androsaur: a phone recognizes a person, the dinosaur turns into their own character, plays a note" width="320"></td>
+<td valign="middle"><img src="https://raw.githubusercontent.com/androsaurs/.github/main/profile/stand.png" alt="Androsaur stand: a motorized stand with a phone holder and an electronics enclosure (CAD render)" width="213"></td>
+</tr>
+</table>
+
+<p align="center"><sub><i>The companion on the phone, and a stand that is being designed for it (CAD render, work in progress).</i></sub></p>
 
 # 🦖 Androsaur
 
-**Old Android phones become a home assistant: a living character on the screen that hears its name, recognizes people and speaks.**
-Основная часть работает прямо на телефоне, без облака. · *The core runs on the phone itself, no cloud.*
+**English** | [Русский](README.ru.md)
+
+**A companion for your home that looks after the people in it.**
+Give an old phone a second life as a small living character. It sits next to you, knows who is in front of it, reminds you to
+rest and to take your pills, passes on messages, and keeps the family's little things in mind. Most of this happens on the phone
+itself, with no cloud.
 
 <p align="center">
-  <a href="https://github.com/androsaurs/androsaur#quick-start"><b>▶ Try it · Попробовать</b></a>
+  <a href="https://github.com/androsaurs/androsaur#quick-start"><b>▶ Try it</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://github.com/androsaurs/.github/blob/main/CONTEXT.md#как-собирать-и-проверять"><b>🔧 Build · Собрать</b></a>
+  <a href="https://github.com/androsaurs/.github/blob/main/CONTEXT.md#как-собирать-и-проверять"><b>🔧 Build it</b></a>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="https://github.com/androsaurs/androsaur-stand/blob/main/docs/enclosure.md#печать-без-поддержек"><b>🖨 Print the stand · Напечатать подставку</b></a>
+  <a href="https://github.com/androsaurs/androsaur-stand/blob/main/docs/enclosure.md#печать-без-поддержек"><b>🖨 Print the stand</b></a>
 </p>
 
-> The stand is still a CAD draft: it is not a print-ready kit, and no test print has been made yet.
-> Подставка пока черновик: это не готовый к печати комплект, пробной печати ещё не было.
+## Meet your companion
 
-## Modules · Модули
+A dinosaur on the screen that breathes, blinks, follows you with its eyes and talks. It falls asleep when nobody is around and
+wakes up when you call its name or walk up.
 
-Each module is a small app that is useful on its own; together they are one creature. Every module speaks plain HTTP (and MCP), so an
-AI agent can use it directly. · Каждый модуль полезен сам по себе, вместе они одно существо.
+It knows the family. When someone appears, it recognizes them and shows their name, and each person can have **their own
+character**: a kitten, a puppy, a hamster, a penguin and others, some of which put on glasses when you ask. The first time you
+meet in a day it greets you by name, tells you the weather ("take an umbrella, it will rain this evening") and, if you like, your horoscope.
 
-| Module | What it does | Что делает | Status |
-| --- | --- | --- | --- |
-| [androsaur](https://github.com/androsaurs/androsaur) | Main app: the face and seven characters with outfits, clock and weather, knows who is in front, delivers voice notes to the right person, short voice commands, family memory | Главное приложение: лицо и семь персонажей с нарядами, часы и погода, знает, кто перед ним, передаёт записки нужному человеку, короткие голосовые команды, семейная память | working prototype |
-| [androsaur-audio](https://github.com/androsaurs/androsaur-audio) | Microphone and voice: wake word with switchable engines, offline Russian speech, voice notes, short commands, MCP | Микрофон и голос: слово пробуждения с переключаемыми движками, русская речь офлайн, голосовые записки, короткие команды, MCP | working prototype |
-| [androsaur-camera](https://github.com/androsaurs/androsaur-camera) | Camera service: face tracking, recognizes taught people by a permanent id, document shots, MCP | Камера: слежение за лицом, узнаёт обученных людей по постоянному ID, снимки документов, MCP | working prototype |
-| [androsaur-hub](https://github.com/androsaurs/androsaur-hub) | Home server (FastAPI): admin page for settings, people, weather, smart home and memory; syncs faces between phones so a new phone recognizes the family without teaching | Домашний сервер (FastAPI): админка настроек, людей, погоды, умного дома и памяти; синхронизирует лица между телефонами, новый телефон узнаёт семью без обучения | first version, home network only |
-| [androsaur-stand](https://github.com/androsaurs/androsaur-stand) | Motorized stand: parametric Python (build123d) model of the pan-tilt mechanism, phone holder and electronics enclosure | Моторизованная подставка: параметрическая модель на Python (build123d): поворотно-наклонный механизм, держатель телефона и корпус электроники | CAD draft, no firmware yet |
+## It looks after you
 
-Details, APIs and what is not done yet: [CONTEXT.md](https://github.com/androsaurs/.github/blob/main/CONTEXT.md) (written for AI agents).
-Faces are kept as numbers, never as photos, on the phones and the home server only.
+- **Digital wellbeing.** Working at your desk, you have a companion who notices how long you have been sitting. When it is time to rest, it asks you to get up, stretch or take a walk. The character gets tired, then exhausted, and says "well done" when you come back from a break.
+- **Pill reminders.** Everyone has their own schedule. When the phone sees you in the time window, it reminds you to take your medicine, once, and notes it when you say "taken". The log reaches the home server, even if the connection comes back later.
 
-**License:** the code is [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html): use, change and share it, but any modified
-version, including one run as a service, must stay open under the same license. The stand's models and drawings are
-[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), non-commercial. For commercial use, contact the author.
+## It helps around the house
+
+- **Messages that find the right person.** Leave someone a voice note, and it is played when that person walks up to the phone.
+- **A memory for the family.** Say "remember the batteries are in the top drawer", and later ask it to recall.
+- **A message to another room**, played on a smart speaker there.
+- **Time, weather, timers and quick sums**, answered right away.
+
+## Private by design
+
+The phone itself recognizes its name and faces. Faces are kept as numbers, never as photos, and only on your phones and your own
+home server. The home server and online services are optional extras (shared settings, transcribing notes, smart home);
+without them everything else keeps working on the last settings it received.
+
+## Where it stands
+
+- The companion works as a prototype, tested on a Xiaomi Redmi 12 (Android 15).
+- The voice is currently Russian only (the name, the commands, the notes).
+- The motorized stand, which will turn the phone toward you, is a design draft: there is no firmware yet and it has not been test-printed.
+
+## The Androsaur family
+
+| Project | In plain words | Status |
+| --- | --- | --- |
+| [androsaur](https://github.com/androsaurs/androsaur) | The companion itself: the face, the seven characters, clock and weather, the care and the notes | working prototype |
+| [androsaur-audio](https://github.com/androsaurs/androsaur-audio) | Its ears and voice: hears its name, understands short commands | working prototype |
+| [androsaur-camera](https://github.com/androsaurs/androsaur-camera) | Its eyes: finds faces and knows who is who | working prototype |
+| [androsaur-hub](https://github.com/androsaurs/androsaur-hub) | An optional server at home where the family sets things up: people, characters, pill schedules, break reminders. A new phone recognizes the family right away | first version, home network only |
+| [androsaur-stand](https://github.com/androsaurs/androsaur-stand) | The motorized stand for the phone | design draft, no firmware yet |
+
+## License
+
+Open source: the code is [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html), the stand's models and drawings are
+[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (non-commercial). For commercial use, contact the author.
