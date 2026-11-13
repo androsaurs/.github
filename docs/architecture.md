@@ -70,3 +70,69 @@ displayed separately from phone reachability, never reported as online.
 Capabilities are advertised only when implemented: the bare board offers status
 and policy storage, not functioning motors/audio/sensors. OTA/audio transport and
 alarm override of night silence remain separate work; unsupported actions fail.
+
+## Visual tracking (owner decision, 2026-11-12)
+
+The phone detects and selects a face, then sends signed normalised error:
+`x=2*cx-1` (positive right), `y=1-2*cy` (positive up), centre `(0,0)`.
+No angles, PWM values, mechanical geometry or actual servo positions are needed on Android.
+ESP owns incremental corrections, deadband, slew rate and calibrated pulse limits.
+The only feedback is the next camera observation, not a position sensor.
+
+Camera results have a boot-qualified frame ID and monotonic analysis-start time.
+The app polls at its existing roughly 4 Hz rate and only sends new, fresh results;
+it never repeats a frame to manufacture a higher observation rate. A single latest
+observation replaces any waiting one. TLS is established before streaming;
+age is checked again after connection establishment before writing a request.
+Owner-only `POST /v1/tracking` uses the same pinned HTTPS connection pool.
+Session/sequence checks reject duplicates and older observations. ESP ceases changing
+the commanded pulse after 500 ms without fresh input or on an explicit lost-target
+event, retaining holding PWM. No blind search sweep is implemented.
+
+GPIO, axis directions, neutral and mechanical pulse limits are ESP configuration.
+PWM defaults OFF and limits default to an uncalibrated zero-width range; enabling
+the flag alone cannot cause movement. Confirm power, wiring and mechanical limits
+before enabling it. An ESP brownout was observed; replacing the cable restored
+network connectivity. Firmware `0.3.2-tracking-links` was flashed via native USB on
+2026-11-13 with a PHY Wi-Fi TX ceiling of 10 dBm. Motion still requires confirmed
+calibration. TLS allocations use PSRAM with the standard 16 KB incoming record limit;
+five concurrent HTTPS sessions are allowed. Authenticated stream ACKs also confirm
+phone-to-stand liveness, independently of periodic metadata polls. The indicator allows
+10 seconds for recovery after the last ACK; observation freshness remains 500 ms.
+Response wait is 2 seconds, with a conflated latest-only queue and a 500 ms reconnect
+backoff. Concurrent TLS handshakes can still delay traffic, especially on weak Wi-Fi.
+
+The optional hub receives bounded observation batches from the phone independently
+of stand connectivity. One diagnostic graph overlays X (blue) and Y (green), with
+zero reference and gaps for lost targets/stale input. This is camera error, not
+measured servo position. No images, face embeddings or recognised identities are
+included. Hub diagnostics never participate in the servo control loop.
+
+
+### Phone battery observations and charger policy
+
+The phone also sends owner-authenticated `POST /v1/battery` on the same pinned HTTPS
+pool: `{v:1,session,seq,ageMs,percent,charging}`. Percent is 0…100; charging is the
+Android CHARGING status (FULL is not charging). Unknown readings are not fabricated.
+Reports are sent on change (system state checked each second) and every 15 seconds,
+with independent latest-only queues for battery and camera, one serial sender, no
+camera or hub dependency. ESP rejects invalid, duplicate/retired or >60-second-old
+reports. The hub's delegated credential cannot write phone observations.
+
+ESP owns hysteresis, initially 40% resume / 80% pause, configurable in firmware.
+Between thresholds it retains the last decision, including a phone session change.
+At boot and after >10 minutes without fresh battery data, power is allowed. No hub
+is needed. Actual Android charging and ESP chargeAllowed are separate status values;
+outputEnabled describes whether a confirmed physical switch is configured. GPIO6
+is proposed only; physical output defaults OFF with GPIO -1 until wiring/polarity
+are confirmed. No swelling-prevention or thermal-safety guarantee is implied.
+
+
+The phone additionally includes `battery: {percent,charging,ageMs}` in its normal
+hub sync, authenticated as that device. This works without an attached stand and
+never gates local ESP delivery. The hub stores the observation time, keeps missing
+reports unknown/aged and marks readings older than 90 seconds stale. An older
+observation cannot replace a newer one. The stand's charging decision arrives via
+its separately pinned `/v1/status.battery`, with outputEnabled shown explicitly.
+The device card distinguishes phone charging from the stand's power decision;
+owner-only no-store battery fragments refresh every 15 seconds in a visible tab.
