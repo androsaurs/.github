@@ -57,19 +57,32 @@ window; possession of the QR alone cannot replace an existing owner.
 
 The phone can delegate a different 256-bit hub key over pinned HTTPS. Phone rights
 include hardware and hub credential management; hub rights include status and
-household policies, never owner replacement or raw microphone access. Keys are
+household policies and (since0.7.0) bounded direct servo control, never owner
+replacement or raw microphone access. Keys are
 hashed in stand NVS; Android uses Keystore encryption. Hub credentials are private
 server data and must not appear in API responses/logs. Hub enrollment requires
 an authenticated phone, an available pinned stand, and an unclaimed 1:1 mapping.
 Only local unicast IPv4 endpoints on the fixed port are accepted by the hub.
 Revoking the hub key does not break the phone/stand pairing.
 
+Standard firmware servo commands accept the owner or delegated hub key:
+`POST /v1/servos/center`, `/v1/servos`, `/v1/servos/stop`. The uncalibrated envelope
+is1450..1550us and at most5seconds per explicit command, followed by automatic PWM
+off. Boot never starts manual PWM. The phone is not in this command path.
+See [direct servo control](../../androsaur-stand/firmware/docs/servos.md).
+OTA upload and confirmation remain owner-only.
+
 The phone keeps local defaults, people and capabilities without the hub. Lost
 stand connectivity falls back to phone hardware. Unknown/stale stand state is
 displayed separately from phone reachability, never reported as online.
 Capabilities are advertised only when implemented: the bare board offers status
-and policy storage, not functioning motors/audio/sensors. OTA/audio transport and
-alarm override of night silence remain separate work; unsupported actions fail.
+and policy storage, not functioning motors/audio/sensors. Firmware 0.6.4 implements
+owner-only pinned HTTPS OTA into an inactive app slot with image/SHA-256 validation,
+explicit owner confirmation of the running ELF hash, and rollback after 120 seconds
+without confirmation. The delegated hub key cannot upload or confirm firmware.
+Protocol and builder workflow: [stand OTA](../../androsaur-stand/firmware/docs/ota.md).
+Audio transport and alarm override of night silence remain separate work;
+unsupported actions fail.
 
 ## Visual tracking (owner decision, 2026-11-12)
 
@@ -107,6 +120,16 @@ of stand connectivity. One diagnostic graph overlays X (blue) and Y (green), wit
 zero reference and gaps for lost targets/stale input. This is camera error, not
 measured servo position. No images, face embeddings or recognised identities are
 included. Hub diagnostics never participate in the servo control loop.
+
+Since firmware `0.8.0-tracking-settings`, the hub can tune the stand directly using
+owner/hub-authenticated `POST /v1/tracking/settings` and stop/resume it with
+`POST /v1/tracking/control`. Settings are stored in stand NVS; the stand keeps
+tracking without the hub. The UI uses approximate degrees for per-axis half-ranges,
+degrees/second for speed, a correction step per 20 ms, smoothing time, dead zone,
+and axis reversal. Angles use a nominal servo mapping, not measured shaft positions.
+The fixed 20 ms control loop filters fresh camera error and limits speed/acceleration
+independently of camera FPS. Narrowed limits are approached gradually. Observation
+authorization, session ordering and the 500 ms freshness limit remain unchanged.
 
 
 ### Phone battery observations and charger policy
